@@ -99,46 +99,49 @@ class ProductListView(ListView):
         return context  
 
 
-class ProductForm(forms.Form):
+class ProductForm(forms.ModelForm):
     name = forms.CharField(required=True)
     price = forms.FloatField(required=True)
 
+    class Meta:
+        model = Product
+        fields = ['name', 'price']
+
     def clean_price(self):
-        price = self.cleaned_data["price"]
-        if price <= 0:
-            raise forms.ValidationError("Price must be greater than zero.")
+        price = self.cleaned_data.get('price')
+        if price is not None and price <= 0:
+            raise ValidationError('Price must be greater than zero.')
         return price
+
+    def save(self, commit=True):
+        obj = super().save(commit=False)
+        if self.cleaned_data.get('price') is not None:
+            obj.price = int(self.cleaned_data['price'])
+        if commit:
+            obj.save()
+        return obj
 
 
 class ProductCreateView(View):
-    template_name = "pages/products/create.html"
+    template_name = 'pages/products/create.html'
 
     def get(self, request):
         form = ProductForm()
-        return render(
-            request,
-            self.template_name,
-            {
-                "title": "Create product",
-                "form": form,
-            }
-        )
+        viewData = {}
+        viewData["title"] = "Create product"
+        viewData["form"] = form
+        return render(request, self.template_name, viewData)
 
     def post(self, request):
         form = ProductForm(request.POST)
-
         if form.is_valid():
-            # simulación: no guardamos nada
-            return redirect("created")
+            form.save()
+            return redirect('product-created')
         else:
-            return render(
-                request,
-                self.template_name,
-                {
-                    "title": "Create product",
-                    "form": form,
-                }
-            )
+            viewData = {}
+            viewData["title"] = "Create product"
+            viewData["form"] = form
+            return render(request, self.template_name, viewData)
 
 class ProductCreatedView(TemplateView):
     template_name = "pages/products/created.html"
