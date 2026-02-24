@@ -1,0 +1,45 @@
+# bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# venv
+env/
+.venv/
+venv/
+
+# django
+db.sqlite3
+*.log
+local_settings.py
+staticfiles/
+media/
+
+# env / secrets
+.env
+.env.local
+*.pem
+
+# os
+.DS_Store
+Thumbs.db
+
+# word / office lock
+.~lock.*
+
+# ide / editor
+.idea/
+.vscode/
+.cursor/
+
+# testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# build / dist
+*.egg-info/
+dist/
+build/
+*.egg
