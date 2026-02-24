@@ -1,5 +1,5 @@
-# HelloWorld Tutorial Completion
+# 2nd Tutorial Completion
 
-This repository follows the official tutorial for the project. All tutorial activities were completed successfully.
+The second tutorial was finished 
 
-**Author:** Andres Velez Rendon
+**By:** Andres Velez Rendon
