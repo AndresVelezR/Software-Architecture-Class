@@ -1,5 +1,5 @@
-# 2nd Tutorial Completion
+# 3rd Tutorial Completion
 
-The second tutorial was finished 
+The third tutorial was finished 
 
 **By:** Andres Velez Rendon
